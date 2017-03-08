@@ -19,10 +19,15 @@ webcam = cv2.VideoCapture(0)
 pin=sorted([int(n[:n.find('.')]) for n in os.listdir(path)
      if n[0]!='.' ]+[0])[-1] + 1
 
+# Beginning message
+print("\n\033[94mThe program will save 20 samples. \
+Move your head around to increase while it runs.\033[0m\n")
+
 # The program loops until it has 20 images of the face.
 count = 0
 pause = 0
-while count < 20:
+count_max = 20
+while count < count_max:
 
     # Loop until the camera is working
     rval = False
@@ -69,7 +74,7 @@ while count < 20:
             # To create diversity, only save every fith detected image
             if(pause == 0):
 
-                print("Saving training sample")
+                print("Saving training sample "+str(count+1)+"/"+str(count_max))
 
                 # Save image file
                 cv2.imwrite('%s/%s.png' % (path, pin), face_resize)
