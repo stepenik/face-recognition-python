@@ -20,6 +20,13 @@ for (subdirs, dirs, files) in os.walk(fn_dir):
 
         # Loop through each photo in the folder
         for filename in os.listdir(subjectpath):
+
+            # Skip non-image formates
+            f_name, f_extension = os.path.splitext(filename)
+            if(f_extension.lower() not in
+                    ['.png','.jpg','.jpeg','.gif','.pgm']):
+                print("Skipping "+filename+", wrong file type")
+                continue
             path = subjectpath + '/' + filename
             lable = id
 
