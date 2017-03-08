@@ -1,9 +1,13 @@
 # train.py
 import cv2, sys, numpy, os
-size = 4
+size = 1
 fn_haar = 'haarcascade_frontalface_default.xml'
 fn_dir = 'att_faces'
-fn_name = sys.argv[1]
+try:
+    fn_name = sys.argv[1]
+except:
+    print("You must provide a name")
+    sys.exit(0)
 path = os.path.join(fn_dir, fn_name)
 if not os.path.isdir(path):
     os.mkdir(path)
@@ -14,12 +18,7 @@ webcam = cv2.VideoCapture(0)
 # The program loops until it has 20 images of the face.
 count = 0
 while count < 20:
-    # Loop untill the camera is working
-    rval = False
-    while(not rval):
-        (rval, im) = webcam.read()
-        if(not rval):
-            print("Failed to open webcam. Trying again...")
+    (rval, im) = webcam.read()
     im = cv2.flip(im, 1, 0)
     gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
     mini = cv2.resize(gray, (int(gray.shape[1] / size), int(gray.shape[0] / size)))
